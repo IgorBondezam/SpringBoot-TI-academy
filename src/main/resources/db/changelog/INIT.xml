@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="1" author="igor">
+        <preConditions onFail="MARK_RAN" onFailMessage="A tabela Vendedor ja existe">
+            <not>
+                <tableExists tableName="VENDEDOR"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="VENDEDOR">
+            <column name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_VENDEDOR"/>
+            </column>
+            <column name="NOME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addAutoIncrement tableName="vendedor" columnName="id" columnDataType="int" incrementBy="1" startWith="1"/>
+
+
+    </changeSet>
+
+    <changeSet id="2" author="igor">
+        <preConditions onFail="MARK_RAN" onFailMessage="A tabela Cliente ja existe">
+            <not>
+                <tableExists tableName="CLIENTE"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="CLIENTE">
+            <column name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_CLIENTE"/>
+            </column>
+            <column name="NOME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addAutoIncrement tableName="cliente" columnName="id" columnDataType="int" incrementBy="1" startWith="1"/>
+
+
+    </changeSet>
+
+
+</databaseChangeLog>
