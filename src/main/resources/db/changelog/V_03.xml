@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+
+    <changeSet id="1" author="Igor">
+        <preConditions onFail="MARK_RAN" onFailMessage="Tabela ja existe">
+            <not>
+                <tableExists tableName="item"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="item">
+            <column name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_item"/>
+            </column>
+
+            <column name="quantidade" type="integer">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="valor" type="float">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="servico_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_item_servico" referencedColumnNames="id" referencedTableName="servico"/>
+            </column>
+
+
+        </createTable>
+
+        <addAutoIncrement tableName="item" columnName="id" columnDataType="int" incrementBy="1" startWith="1"/>
+
+    </changeSet>
+
+    <changeSet id="2" author="Igor">
+        <preConditions onFail="MARK_RAN" onFailMessage="Tabela ja existe">
+            <not>
+                <tableExists tableName="item_pedido"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="item_pedido">
+
+            <column name="item_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_item" referencedColumnNames="id" referencedTableName="item"/>
+            </column>
+
+            <column name="pedido_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_pedido" referencedColumnNames="id" referencedTableName="pedido"/>
+            </column>
+
+
+        </createTable>
+
+
+    </changeSet>
+
+
+
+
+
+
+</databaseChangeLog>

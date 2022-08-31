@@ -1,6 +1,7 @@
 package br.com.tiacademy.vendas.service;
 
 
+import br.com.tiacademy.vendas.core.crud.CrudService;
 import br.com.tiacademy.vendas.domain.Cliente;
 import br.com.tiacademy.vendas.repository.ClienteReporsitory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,39 +12,16 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ClienteService {
+public class ClienteService extends CrudService<Cliente, Long> {
 
-    @Autowired
-    private ClienteReporsitory clienteReporsitory;
+    @Override
+    protected Cliente editarEntidade(Cliente recuperado, Cliente entidade){
 
-    public List<Cliente> ListarCli(){
-        return clienteReporsitory.findAll();
+        recuperado.setNome(entidade.getNome());
+
+        return recuperado;
     }
 
-
-    public Cliente cliPorId(Long id){
-        return clienteReporsitory.findById(id).orElse(null);
-    }
-
-    public Cliente criarCli(Cliente cliente){
-        return clienteReporsitory.save(cliente);
-    }
-
-    public Cliente editarCli(Long id, Cliente editado){
-
-        var pegarId = cliPorId(id);
-        if(pegarId == null){
-            return null;
-        }
-        pegarId.setNome(editado.getNome());
-
-        return clienteReporsitory.save(pegarId);
-
-    }
-
-    public void deletarCli(Long id){
-        clienteReporsitory.deleteById(id);
-    }
 
 
 }

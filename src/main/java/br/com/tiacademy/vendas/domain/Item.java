@@ -5,22 +5,26 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Vendedor implements CrudDomain<Long>, Serializable {
+public class Item implements CrudDomain<Long>, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
+    @OneToOne
+    @JoinColumn(name = "servico_id", referencedColumnName = "id")
+    private Servico servico;
+
+    private Integer quantidade;
+    private BigDecimal valor;
+
 
 }

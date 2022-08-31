@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="1" author="Igor">
+        <preConditions onFail="MARK_RAN" onFailMessage="Tabela servico ja existe">
+            <not>
+                <tableExists tableName="servico"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="servico">
+
+            <column name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SERVICO"/>
+            </column>
+
+            <column name="descricao" type="VARCHAR(255)"/>
+
+            <column name="nome" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+
+        </createTable>
+        <addAutoIncrement tableName="servico" columnName="id" columnDataType="int" incrementBy="1" startWith="1"/>
+
+
+    </changeSet>
+
+
+
+</databaseChangeLog>
