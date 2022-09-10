@@ -18,8 +18,13 @@ public class PedidoService extends CrudService<Pedido, Long> {
 
     private final ItemRepository itemRepository;
 
-    public Pedido criarPedido(Pedido pedido, PedidoCriarDTO dto){
+    public Pedido salvarPedido(Pedido pedido, PedidoCriarDTO dto){
 
+        var resultado =  criarPedido(pedido, dto);
+        return super.criar(resultado);
+    }
+
+    public Pedido criarPedido(Pedido pedido, PedidoCriarDTO dto) {
         var ids = dto.getItens().stream().map(ItemPedidoDTO::getId).collect(Collectors.toList());
 
         var itens = itemRepository.findByIdIn(ids);
@@ -31,7 +36,7 @@ public class PedidoService extends CrudService<Pedido, Long> {
         pedido.setValor(valorTotal);
         pedido.getItens().addAll(itens);
 
-        return super.criar(pedido);
+        return pedido;
     }
 
 
